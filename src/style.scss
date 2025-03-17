@@ -1,3 +1,10 @@
+:root {
+  --line-height: 19px;
+  --char-width: 9.64px;
+  --buffer-lines: 1;
+  --buffer-height: calc(var(--line-height) * var(--buffer-lines));
+}
+
 * {
   padding: 0;
   margin: 0;
@@ -6,17 +13,12 @@
   font-style: normal;
 }
 
-:root {
-  --line-height: 25px;
-  --buffer-lines: 1;
-  --buffer-height: calc(var(--line-height) * var(--buffer-lines));
-}
-
 main#app {
   min-height: 100vh;
   max-height: 100vh;
   width: 100%;
   background-color: #282828;
+  color: #EBDBB2;
   display: grid;
 
   #sign-column {
