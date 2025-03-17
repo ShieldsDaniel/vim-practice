@@ -1,0 +1,25 @@
+{
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"dev": "vite",
+		"build": "vite build",
+		"preview": "vite preview"
+	},
+	"dependencies": {
+		"preact": "^10.25.3",
+		"rxjs": "^7.8.2"
+	},
+	"devDependencies": {
+		"@preact/preset-vite": "^2.9.3",
+		"eslint": "^8.57.1",
+		"eslint-config-preact": "^1.5.0",
+		"sass-embedded": "^1.85.1",
+		"typescript": "^5.8.2",
+		"vite": "^6.0.4"
+	},
+	"eslintConfig": {
+		"extends": "preact"
+	},
+	"packageManager": "yarn@1.22.21+sha1.1959a18351b811cdeedbd484a8f86c3cc3bbaf72"
+}

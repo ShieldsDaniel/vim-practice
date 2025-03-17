@@ -1,0 +1,47 @@
+* {
+  padding: 0;
+  margin: 0;
+  font-family: "JetBrains Mono", monospace;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+:root {
+  --line-height: 25px;
+  --buffer-lines: 1;
+  --buffer-height: calc(var(--line-height) * var(--buffer-lines));
+}
+
+main#app {
+  min-height: 100vh;
+  max-height: 100vh;
+  width: 100%;
+  background-color: #282828;
+  display: grid;
+
+  #sign-column {
+    grid-area: sign-column;
+    background: blue;
+  }
+
+  #buffer {
+    grid-area: buffer;
+    color: #EBDBB2;
+  }
+
+  #status-line {
+    grid-area: status-line;
+    background: green;
+  }
+
+  #command-line {
+    grid-area: command-line;
+    background: yellow;
+  }
+
+  grid-template-columns: 50px 1fr;
+  grid-template-rows: var(--buffer-height) var(--line-height) var(--line-height);
+  grid-template-areas: "sign-column buffer"
+  "status-line status-line"
+  "command-line command-line";
+}
