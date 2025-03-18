@@ -3,12 +3,66 @@
   --char-width: 9.64px;
   --buffer-lines: 1;
   --buffer-height: calc(var(--line-height) * var(--buffer-lines));
+  --dark0-hard: #1d2021;
+  --dark0: #282828;
+  --dark0-soft: #32302f;
+  --dark1: #3c3836;
+  --dark2: #504945;
+  --dark3: #665c54;
+  --dark4: #7c6f64;
+  --light0-hard: #f9f5d7;
+  --light0: #fbf1c7;
+  --light0-soft: #f2e5bc;
+  --light1: #ebdbb2;
+  --light2: #d5c4a1;
+  --light3: #bdae93;
+  --light4: #a89984;
+  --bright-red: #fb4934;
+  --bright-green: #b8bb26;
+  --bright-yellow: #fabd2f;
+  --bright-blue: #83a598;
+  --bright-purple: #d3869b;
+  --bright-aqua: #8ec07c;
+  --bright-orange: #fe8019;
+  --neutral-red: #cc241d;
+  --neutral-green: #98971a;
+  --neutral-yellow: #d79921;
+  --neutral-blue: #458588;
+  --neutral-purple: #b16286;
+  --neutral-aqua: #689d6a;
+  --neutral-orange: #d65d0e;
+  --faded-red: #9d0006;
+  --faded-green: #79740e;
+  --faded-yellow: #b57614;
+  --faded-blue: #076678;
+  --faded-purple: #8f3f71;
+  --faded-aqua: #427b58;
+  --faded-orange: #af3a03;
+  --dark-red-hard: #792329;
+  --dark-red: #722529;
+  --dark-red-soft: #7b2c2f;
+  --light-red-hard: #fc9690;
+  --light-red: #fc9487;
+  --light-red-soft: #f78b7f;
+  --dark-green-hard: #5a633a;
+  --dark-green: #62693e;
+  --dark-green-soft: #686d43;
+  --light-green-hard: #d3d6a5;
+  --light-green: #d5d39b;
+  --light-green-soft: #cecb94;
+  --dark-aqua-hard: #3e4934;
+  --dark-aqua: #49503b;
+  --dark-aqua-soft: #525742;
+  --light-aqua-hard: #e6e9c1;
+  --light-aqua: #e8e5b5;
+  --light-aqua-soft: #e1dbac;
+  --gray: #928374;
 }
 
 * {
   padding: 0;
   margin: 0;
-  font-family: "JetBrains Mono", monospace;
+  font-family: JetBrains Mono, monospace;
   font-optical-sizing: auto;
   font-style: normal;
 }
@@ -17,33 +71,27 @@ main#app {
   min-height: 100vh;
   max-height: 100vh;
   width: 100%;
-  background-color: #282828;
-  color: #EBDBB2;
   display: grid;
 
   #sign-column {
-    grid-area: sign-column;
     background: blue;
   }
 
   #buffer {
-    grid-area: buffer;
-    color: #EBDBB2;
+    background-color: var(--dark0);
+    color: var(--light1);
+
+    .cursor {
+      background: var(--light1);
+      color: var(--dark0);
+    }
   }
 
   #status-line {
-    grid-area: status-line;
     background: green;
   }
 
   #command-line {
-    grid-area: command-line;
     background: yellow;
   }
-
-  grid-template-columns: 50px 1fr;
-  grid-template-rows: var(--buffer-height) var(--line-height) var(--line-height);
-  grid-template-areas: "sign-column buffer"
-  "status-line status-line"
-  "command-line command-line";
 }

@@ -1,13 +1,16 @@
 import { renderBuffer } from "./render-buffer";
 
-export type Char = string;
-export type Buffer = Char[][];
+export type Char = string | null;
+export type Buffer = Char[];
 export type BufferStyle = {
     blockHeight: number;
     blockWidth: number;
     fontSize: number;
     bufferHeight: number;
     bufferWidth: number;
+    topStartIndex: number;
+    leftStartIndex: number;
+    cursorPosition: [number, number];
 };
 
 const createBlock = (document: Document, column: number, bufferStyle: BufferStyle): HTMLDivElement => {
@@ -43,8 +46,9 @@ const createLine = (document: Document, row: number, bufferStyle: BufferStyle): 
     return displayLine;
 };
 
-export const createBuffer = (document: Document, bufferData: Buffer, bufferStyle: BufferStyle): void => {
+export const createBuffer = (document: Document, bufferData: Buffer, bufferStyle: BufferStyle): HTMLDivElement | null => {
     const displayBuffer = document.createElement("div");
+    displayBuffer.id = "buffer";
 
     for (let i = 0; i < bufferStyle.bufferHeight; i++) {
         if (i > 1_000_000) {
@@ -56,6 +60,7 @@ export const createBuffer = (document: Document, bufferData: Buffer, bufferStyle
     const app = document.querySelector<HTMLDivElement>('#app')
     if (app) {
         app.appendChild(displayBuffer);
-        renderBuffer(app, bufferData, bufferStyle)
+        renderBuffer(app, [[], bufferData], [{ ...bufferStyle, cursorPosition: [-1, -1] }, bufferStyle]);
     }
+    return app;
 };

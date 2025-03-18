@@ -1,42 +1,70 @@
 import { type Buffer, createBuffer, type BufferStyle } from './create-buffer';
-import { keydownHandler$, keyupHandler$ } from './keypress-handler';
+import { keypressHandler$ } from './keypress-handler';
+import { renderBuffer } from './render-buffer';
 import './style.scss';
+
+const buffer: Buffer = [
+    null,
+    "\"Hello World\"",
+    null,
+    "Hello",
+    null,
+    null,
+    null,
+    "function y() {",
+    "  let x = 6",
+    "}",
+    null,
+];
+
+const displayedBuffer = (buffer: Buffer, bufferStyle: BufferStyle): Buffer => {
+    const topTrimmedBuffer = buffer.slice(bufferStyle.topStartIndex, bufferStyle.topStartIndex + bufferStyle.bufferHeight);
+    const leftTrimmedBuffer = [];
+    for (let i = 0; i < topTrimmedBuffer.length; i++) {
+        const line = topTrimmedBuffer[i];
+        if (line) {
+            leftTrimmedBuffer.push(line.slice(bufferStyle.leftStartIndex, bufferStyle.leftStartIndex + bufferStyle.bufferWidth));
+        } else {
+            leftTrimmedBuffer.push(null);
+        }
+    }
+    return leftTrimmedBuffer;
+}
 
 function main() {
     const blockHeight = 19;
     const blockWidth = 9.64;
-    const bufferStyle: BufferStyle = {
+    let bufferStyle: BufferStyle = {
         blockHeight,
         blockWidth,
         fontSize: 16,
         bufferHeight: Math.floor(window.innerHeight / blockHeight),
         bufferWidth: Math.floor(window.innerWidth / blockWidth),
+        topStartIndex: 0,
+        leftStartIndex: 0,
+        cursorPosition: [0, 0],
     };
-    // const topStartIndex = 0;
-    // const leftStartIndex = 0;
 
-    // TODO: we need to be able to create this programmatically
-    const bufferData: Buffer = [
-        [],
-        ["\"", "H", "e", "l", "l", "o", " ", "W", "o", "r", "l", "d", "\""],
-        [],
-        ["H", "e", "l", "l", "o"],
-        [],
-        [],
-        [],
-        ["f", "u", "n", "c", "t", "i", "o", "n", " ", "y", "(", ")", " ", "{"],
-        [" ", " ", "l", "e", "t", " ", "x", " ", "=", " ", "6"],
-        ["}"],
-        [],
-    ];
-
-    createBuffer(document, bufferData, bufferStyle);
-    keydownHandler$(window).subscribe((event) => {
-        console.log('keydown: ', event);
-    });
-    keyupHandler$(window).subscribe((event) => {
-        console.log('keyup: ', event);
-    });
+    const bufferData = displayedBuffer(buffer, bufferStyle);
+    const app = createBuffer(document, bufferData, bufferStyle);
+    if (app) {
+        keypressHandler$(window).subscribe((event) => {
+            const newBufferStyle = { ...bufferStyle, cursorPosition: [bufferStyle.cursorPosition[0], bufferStyle.cursorPosition[1]] as [number, number] };
+            if (event.type === 'keydown') {
+                if (event.key === 'h') {
+                    newBufferStyle.cursorPosition[1] = newBufferStyle.cursorPosition[1] - 1;
+                } else if (event.key === 'k') {
+                    newBufferStyle.cursorPosition[0] = newBufferStyle.cursorPosition[0] - 1;
+                } else if (event.key === 'j') {
+                    newBufferStyle.cursorPosition[0] = newBufferStyle.cursorPosition[0] + 1;
+                } else if (event.key === 'l') {
+                    newBufferStyle.cursorPosition[1] = newBufferStyle.cursorPosition[1] + 1;
+                }
+                renderBuffer(app, [bufferData, bufferData], [bufferStyle, newBufferStyle])
+                bufferStyle = newBufferStyle;
+            }
+        });
+    }
 }
 
 main();
