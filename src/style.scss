@@ -1,8 +1,6 @@
 :root {
   --line-height: 19px;
   --char-width: 9.64px;
-  --buffer-lines: 1;
-  --buffer-height: calc(var(--line-height) * var(--buffer-lines));
   --dark0-hard: #1d2021;
   --dark0: #282828;
   --dark0-soft: #32302f;
@@ -71,27 +69,32 @@ main#app {
   min-height: 100vh;
   max-height: 100vh;
   width: 100%;
-  display: grid;
 
   #sign-column {
-    background: blue;
+    background: var(--dark-red);
   }
 
   #buffer {
     background-color: var(--dark0);
     color: var(--light1);
+    display: inline-block;
 
-    .cursor {
+    #cursor {
+      height: 19px;
+      width: 9.64px;
+      left: calc(9.64px * 3);
+      top: calc(19px * 2);
+      position: absolute;
       background: var(--light1);
       color: var(--dark0);
     }
   }
 
   #status-line {
-    background: green;
+    background: var(--dark-green);
   }
 
   #command-line {
-    background: yellow;
+    background: var(--dark-aqua);
   }
 }

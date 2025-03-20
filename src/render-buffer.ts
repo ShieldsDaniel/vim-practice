@@ -45,3 +45,6 @@ export const renderBuffer = (buffer: HTMLDivElement, bufferData: [Buffer, Buffer
     }
 }
 
+export const newRenderBuffer = () => {
+
+};
